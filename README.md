@@ -68,10 +68,23 @@ react-native bundle --dev false --entry-file index.js --bundle-output ios/main.j
 
 #### Live App ScreenShots
 
-<img style="margin-right: 10px" src="./doc/1.png" width="120">
-<img style="margin-right: 10px" src="./doc/2.png" width="120">
-<img style="margin-right: 10px" src="./doc/3.png" width="120">
-<img style="margin-right: 10px" src="./doc/4.png" width="120">
-<img style="margin-right: 10px" src="./doc/5.png" width="120">
-<img style="margin-right: 10px" src="./doc/6.png" width="120">
-<img style="margin-right: 10px" src="./doc/7.png" width="120">
+<table style="width:100%; border-color: #fff">
+  <tr>
+    <td style="border-color: #fff"><img src="./doc/1.png" width="120"></td>
+    <td style="border-color: #fff"><img src="./doc/2.png" width="120"></td>
+    <td style="border-color: #fff"><img src="./doc/3.png" width="120"></td>
+  </tr>
+  <tr>
+    <td style="border-color: #fff"><img src="./doc/4.png" width="120"></td>
+    <td style="border-color: #fff"><img src="./doc/5.png" width="120"></td>
+    <td style="border-color: #fff"><img src="./doc/6.png" width="120"></td>
+  </tr>
+  <tr>
+    <td style="border-color: #fff"><img src="./doc/7.png" width="120"></td>
+  </tr>
+</table>
+
+
+
+
+
