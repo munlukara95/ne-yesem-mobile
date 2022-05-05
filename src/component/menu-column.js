@@ -2,9 +2,10 @@ import {Heading, Popover, Pressable, Skeleton, Text, VStack} from "native-base";
 import React from "react";
 import CryptoUtil from "../util/crypto-util";
 
-const MenuColumn = ({headerColor, contentColor, headerText, contentText, isLoaded}) => {
+const MenuColumn = ({headerColor, contentColor, headerText, contentText, isLoaded, w}) => {
+
     return(
-        <VStack w={'30%'}>
+        <VStack w={w}>
             <Skeleton.Text lines={0} px={12} isLoaded={isLoaded}>
                 <Heading color={headerColor} size={"xs"}>{headerText}</Heading>
             </Skeleton.Text>
