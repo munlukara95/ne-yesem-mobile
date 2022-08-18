@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Actionsheet, Button, HStack, Input, Pressable, ScrollView, VStack} from "native-base";
+import {Actionsheet, Button, HStack, Input, KeyboardAvoidingView, Pressable, ScrollView, VStack} from "native-base";
 import ActionSheetHeaderDiningScreen from "./actionsheet-header.dining-screen";
 import Minus from "../../public/icon/minus.svg";
 import DiningTypes from "../type/dining-types";
 import {addMeal, updateMeal} from '../service/local-storage.service';
 import ActionSheetTypes from "../type/actionsheet-types";
 import useMealContentValid from "../hook/use-meal-content-valid";
+import {Platform} from "react-native";
 
 
 const ActionSheetDiningScreen = ({isOpen, onClose, type, meal}) => {
@@ -73,12 +74,12 @@ const ActionSheetDiningScreen = ({isOpen, onClose, type, meal}) => {
         setCounterSide(0);
     };
 
-    const removeSideInput = (id: number) => {
+    const removeSideInput = (id) => {
         const newSideArr = sideArr.filter((side) => side.id !== id );
         setSideArr(newSideArr);
     };
 
-    const onChangeTextInput = (value: string, type: DiningTypes, id?: number) => {
+    const onChangeTextInput = (value, type, id?) => {
         switch (type){
             case DiningTypes.BEGINNING:
                 setBeginningValue(value);
@@ -132,47 +133,52 @@ const ActionSheetDiningScreen = ({isOpen, onClose, type, meal}) => {
         <Actionsheet isOpen={isOpen} onClose={() => onClose()} size={'full'}>
             <Actionsheet.Content>
                 <ScrollView w={"100%"}>
-                    <ActionSheetHeaderDiningScreen headerText={"Başlangıç"} isAdd={isBeginning} setIsAdd={setIsBeginning} />
-                    {!isBeginning
-                        ? <VStack px={2} m={2} w={"100%"} justifyContent={"center"} alignItems={"flex-start"}>
-                            <Input onChangeText={(newText) => onChangeTextInput(newText, DiningTypes.BEGINNING)} value={beginningValue} w={"95%"} variant="outline" />
+                    <KeyboardAvoidingView h={{
+                        base: "400px",
+                        lg: "auto"
+                    }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+                        <ActionSheetHeaderDiningScreen headerText={"Başlangıç"} isAdd={isBeginning} setIsAdd={setIsBeginning} />
+                        {!isBeginning
+                            ? <VStack px={2} m={2} w={"100%"} justifyContent={"center"} alignItems={"flex-start"}>
+                                <Input onChangeText={(newText) => onChangeTextInput(newText, DiningTypes.BEGINNING)} value={beginningValue} w={"95%"} variant="outline" />
+                            </VStack>
+                            : null
+                        }
+                        <ActionSheetHeaderDiningScreen headerText={"Ana Ürün"} isAdd={isMain} setIsAdd={setIsMain} />
+                        {!isMain
+                            ? <VStack px={2} m={2} w={"100%"} justifyContent={"center"} alignItems={"flex-start"}>
+                                <Input onChangeText={(newText) => onChangeTextInput(newText, DiningTypes.MAIN)} value={mainValue} w={"95%"} variant="outline" />
+                            </VStack>
+                            : null
+                        }
+                        <ActionSheetHeaderDiningScreen isSide={true} headerText={"Yan Ürün"} isAdd={isSide}
+                                                       setIsAdd={setIsSide} counter={counterSide} setCounter={setCounterSide}/>
+                        {
+                            sideArr.map((side, ndx) => {
+                            return(
+                                <HStack key={ndx+'hstack'} w="100%" h={60} px={4} justifyContent="space-between" alignItems="center">
+                                    <VStack key={ndx+'vstack-first'} w={"85%"}>
+                                        <Input onChangeText={(newText) => onChangeTextInput(newText, DiningTypes.SIDE, side.id)} key={ndx+'input'} value={side.value} variant="outline" />
+                                    </VStack>
+                                    <VStack key={ndx+'vstack-second'}>
+                                        <Pressable key={ndx+'pressable'} onPress={() => {
+                                            removeSideInput(side.id);
+                                        }}>
+                                            <Minus height={"100%"} width={"20"} fill={"#a1a1aa"}/>
+                                        </Pressable>
+                                    </VStack>
+                                </HStack>
+                            )
+                        })}
+                        <VStack mt={3} mb={3} w={"100%"} justifyContent={"center"} alignItems={"flex-end"}>
+                            <Button isDisabled={!isValidContent} onPress={type === ActionSheetTypes.ADD ? handleSaveMeal : handleUpdateMeal} w={"100"} size="sm" variant="outline" colorScheme={type === ActionSheetTypes.ADD ? 'danger' : 'warning'}>
+                                {type === ActionSheetTypes.ADD
+                                    ? 'Kaydet'
+                                    : 'Güncelle'
+                                }
+                            </Button>
                         </VStack>
-                        : null
-                    }
-                    <ActionSheetHeaderDiningScreen headerText={"Ana Ürün"} isAdd={isMain} setIsAdd={setIsMain} />
-                    {!isMain
-                        ? <VStack px={2} m={2} w={"100%"} justifyContent={"center"} alignItems={"flex-start"}>
-                            <Input onChangeText={(newText) => onChangeTextInput(newText, DiningTypes.MAIN)} value={mainValue} w={"95%"} variant="outline" />
-                        </VStack>
-                        : null
-                    }
-                    <ActionSheetHeaderDiningScreen isSide={true} headerText={"Yan Ürün"} isAdd={isSide}
-                                                   setIsAdd={setIsSide} counter={counterSide} setCounter={setCounterSide}/>
-                    {
-                        sideArr.map((side, ndx) => {
-                        return(
-                            <HStack key={ndx+'hstack'} w="100%" h={60} px={4} justifyContent="space-between" alignItems="center">
-                                <VStack key={ndx+'vstack-first'} w={"85%"}>
-                                    <Input onChangeText={(newText) => onChangeTextInput(newText, DiningTypes.SIDE, side.id)} key={ndx+'input'} value={side.value} variant="outline" />
-                                </VStack>
-                                <VStack key={ndx+'vstack-second'}>
-                                    <Pressable key={ndx+'pressable'} onPress={() => {
-                                        removeSideInput(side.id);
-                                    }}>
-                                        <Minus height={"100%"} width={"20"} fill={"#a1a1aa"}/>
-                                    </Pressable>
-                                </VStack>
-                            </HStack>
-                        )
-                    })}
-                    <VStack mt={3} mb={3} w={"100%"} justifyContent={"center"} alignItems={"flex-end"}>
-                        <Button isDisabled={!isValidContent} onPress={type === ActionSheetTypes.ADD ? handleSaveMeal : handleUpdateMeal} w={"100"} size="sm" variant="outline" colorScheme={type === ActionSheetTypes.ADD ? 'danger' : 'warning'}>
-                            {type === ActionSheetTypes.ADD
-                                ? 'Kaydet'
-                                : 'Güncelle'
-                            }
-                        </Button>
-                    </VStack>
+                    </KeyboardAvoidingView>
                 </ScrollView>
             </Actionsheet.Content>
         </Actionsheet>
