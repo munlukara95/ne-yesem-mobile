@@ -28,7 +28,7 @@ const Splash = ({ isAppReady }: { isAppReady: boolean }) => {
                 <SvgImage width={100 + '%'} height={100 + '%'} Svg={Logo} />
             </AnimatedView>
             <View style={[style.bottomContainer]}>
-                <Text style={[style.textBrand]}>Ne Yesem?</Text>
+                <Text style={[style.textBrand]}>Sofrax</Text>
             </View>
         </View>
     );
