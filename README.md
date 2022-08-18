@@ -54,7 +54,7 @@ Add the following lines to your $HOME/.bash_profile or $HOME/.bashrc (if you are
 
 * Generating keystore for android
 ```
-keytool -genkey -v -keystore release.keystore -alias <alias-name> -keyalg RSA -keysize 2048 -validity 10000
+keytool -genkey -v -keystore release.keystore -storepass <store-pass> -alias <alias-name> -keypass <key-pass> -keyalg RSA -keysize 2048 -validity 10000
 ```
 * Assembling release for android `./gradlew assembleRelease`
 * Getting release for android
