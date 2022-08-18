@@ -54,7 +54,7 @@ Add the following lines to your $HOME/.bash_profile or $HOME/.bashrc (if you are
 
 * Generating keystore for android
 ```
-keytool -genkey -v -keystore release.keystore -alias <alias-name> -keyalg RSA -keysize 2048 -validity 10000
+keytool -genkey -v -keystore release.keystore -storepass <store-pass> -alias <alias-name> -keypass <key-pass> -keyalg RSA -keysize 2048 -validity 10000
 ```
 * Assembling release for android `./gradlew assembleRelease`
 * Getting release for android
@@ -68,19 +68,17 @@ react-native bundle --dev false --entry-file index.js --bundle-output ios/main.j
 
 #### Live App ScreenShots
 
-<table style="width:100%; border-color: #fff">
+<table style="">
   <tr>
-    <td style="border-color: #fff"><img src="./doc/1.png" width="120"></td>
-    <td style="border-color: #fff"><img src="./doc/2.png" width="120"></td>
-    <td style="border-color: #fff"><img src="./doc/3.png" width="120"></td>
+    <td><img src="./doc/1.png" width="150"></td>
+    <td><img src="./doc/2.png" width="150"></td>
+    <td><img src="./doc/3.png" width="150"></td>
+    <td><img src="./doc/4.png" width="150"></td>
+    <td><img src="./doc/5.png" width="150"></td>
   </tr>
   <tr>
-    <td style="border-color: #fff"><img src="./doc/4.png" width="120"></td>
-    <td style="border-color: #fff"><img src="./doc/5.png" width="120"></td>
-    <td style="border-color: #fff"><img src="./doc/6.png" width="120"></td>
-  </tr>
-  <tr>
-    <td style="border-color: #fff"><img src="./doc/7.png" width="120"></td>
+    <td><img src="./doc/6.png" width="150"></td>
+    <td><img src="./doc/7.png" width="150"></td>
   </tr>
 </table>
 
